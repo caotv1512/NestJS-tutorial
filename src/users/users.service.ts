@@ -4,19 +4,25 @@ import { Users } from './entity/user.entity';
 
 @Injectable()
 export class UsersService {
-    private users: Users[] = [{ id: 0, name: 'Marius' }, { id: 1, name: 'CaoTV' }];
+  private users: Users[] = [
+    { id: 0, name: 'Marius' },
+    { id: 1, name: 'CaoTV' },
+  ];
 
-     findAll(): Users[] {
-        return this.users
+  findAll(name: string): Users[] {
+    if (name) {
+      return this.users.filter((users) => users.name === name);
     }
+    return this.users;
+  }
 
-     findById(userId: number): Users {
-        return this.users.find(user => user.id === userId)
-    }
+  findById(userId: number): Users {
+    return this.users.find((user) => user.id === userId);
+  }
 
-     createUser(body: CreateUserDto): Users {
-        const newUser = { id: Date.now(), ...body };
-        this.users.push(newUser)
-        return newUser
-    }
+  createUser(body: CreateUserDto): Users {
+    const newUser = { id: Date.now(), ...body };
+    this.users.push(newUser);
+    return newUser;
+  }
 }
